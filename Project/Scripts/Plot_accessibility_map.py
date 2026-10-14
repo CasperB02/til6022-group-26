@@ -21,7 +21,12 @@ indicator = "departures_per_week_per_1000_residents"
 
 # 3. Load neighborhood geometry
 buurten = gpd.read_file(geometry_file, layer="buurten")
-buurten = buurten[["bu_code", "geometry"]]
+buurten = buurten[["bu_code", "water", "geometry"]].copy()
+buurten["water"] = buurten["water"].astype("string").str.strip().str.upper()
+buurten = buurten.loc[
+    buurten["water"].eq("NEE"),
+    ["bu_code", "geometry"],
+].copy()
 
 # 4. Load accessibility data
 accessibility = pd.read_csv(accessibility_file)
