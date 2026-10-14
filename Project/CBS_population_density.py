@@ -1,12 +1,15 @@
+import os
 import geopandas as gpd
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 
 # 1. File paths
-gpkg_path = r"C:\Users\caspe\OneDrive\Documenten\Carrière\Universiteit\Master\Programming\Project\WijkBuurtkaart_2026_v0.gpkg"
-csv_path = r"C:\Users\caspe\OneDrive\Documenten\Carrière\Universiteit\Master\Programming\Project\86358NED_SelectieZonderStatSymbol_20261012151433.csv"
+#gpkg_path = r"C:\Users\caspe\OneDrive\Documenten\Carrière\Universiteit\Master\Programming\Project\WijkBuurtkaart_2026_v0.gpkg"
 
+#csv_path = r"Data\86358NED_SelectieZonderStatSymbol_20261012151433.csv"
+csv_path = os.path.join('Data', '86358NED_SelectieZonderStatSymbol_20261012151433.csv')
+gpkg_path = os.path.join('Data', 'WijkBuurtkaart_2026_v0.gpkg')
 
 # 2. Load CBS neighborhood geometry
 buurten = gpd.read_file(
