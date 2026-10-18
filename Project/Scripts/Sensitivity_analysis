@@ -1,0 +1,103 @@
+from pathlib import Path
+import pandas as pd
+import geopandas as gpd
+import numpy as np
+import matplotlib.pyplot as plt
+import os
+import sys
+
+# 1. SETTINGS & FILE PATHS
+ROOT = Path(__file__).resolve().parents[2] 
+
+stops_file = ROOT / "Data" / "stops.txt"
+buurten_file = ROOT / "Data" / "WijkBuurtkaart_2026_v0.gpkg"
+cbs_file = ROOT / "Data" / "86358NED_SelectieZonderStatSymbol_20261012151433.csv"
+weekly_frequency_file = ROOT / "Generated_Data" / "stop_frequencies.csv"
+output_image = ROOT / "Images" / "sensitivity_regression_lines.png"
+
+distances_m = [300, 500, 800]
+INDICATOR = "total_departures_per_week"
+
+def r_squared(y_true, y_pred):
+    ss_res = np.sum((y_true - y_pred) ** 2)
+    ss_tot = np.sum((y_true - y_true.mean()) ** 2)
+    return 1 - ss_res / ss_tot
+conda_prefix = sys.prefix
+os.environ['GDAL_DATA'] = os.path.join(conda_prefix, 'Library', 'share', 'gdal')
+os.environ['PROJ_LIB'] = os.path.join(conda_prefix, 'Library', 'share', 'proj')
+
+# 2. LOAD DATA
+print("Loading data...")
+cbs = pd.read_csv(cbs_file, sep=";", dtype="string")
+cbs = cbs[["Regioaanduiding/Codering (code)", "Bevolking/Bevolkingsdichtheid (aantal inwoners per km²)"]].copy()
+cbs.columns = ["bu_code", "density"]
+cbs["bu_code"] = cbs["bu_code"].str.strip()
+cbs["density"] = pd.to_numeric(cbs["density"], errors="coerce")
+
+buurten = gpd.read_file(buurten_file, layer="buurten")[["bu_code", "geometry"]]
+buurten["bu_code"] = buurten["bu_code"].astype(str).str.strip()
+
+stops = pd.read_csv(stops_file, dtype={"stop_id": "string"}, low_memory=False).dropna(subset=["stop_lon", "stop_lat"])
+stop_points = gpd.GeoDataFrame(
+    stops[["stop_id"]].copy(),
+    geometry=gpd.points_from_xy(pd.to_numeric(stops["stop_lon"]), pd.to_numeric(stops["stop_lat"])),
+    crs="EPSG:4326",
+).to_crs(buurten.crs)
+
+stop_frequency = pd.read_csv(weekly_frequency_file, dtype={"stop_id": "string"})
+stop_frequency["stop_id"] = stop_frequency["stop_id"].str.strip()
+stop_frequency["departures_per_week"] = pd.to_numeric(stop_frequency["departures_per_week"], errors="coerce")
+
+# 3. SET UP SENSITIVITY LOOP AND PLOT
+fig, ax = plt.subplots(figsize=(10, 6))
+colors = {300: "#e53e3e", 500: "#2b6cb0", 800: "#2f855a"}
+
+print("\nRunning regressions for different distances...")
+print(f"{'Distance':<10} | {'Neighborhoods':<15} | {'Log-log R²':<12} | {'Slope':<10}")
+print("-" * 55)
+
+for distance in distances_m:
+    buurt_buffers = buurten[["bu_code", "geometry"]].copy()
+    buurt_buffers["geometry"] = buurt_buffers.geometry.buffer(distance)
+    
+    matches = gpd.sjoin(stop_points, buurt_buffers, how="inner", predicate="within")[["bu_code", "stop_id"]].drop_duplicates()
+    matches["stop_id"] = matches["stop_id"].astype("string").str.strip()
+    
+    nearby_service = matches.merge(stop_frequency, on="stop_id", how="left")
+    by_buurt = nearby_service.groupby("bu_code").agg(total_departures_per_week=("departures_per_week", "sum")).reset_index()
+    
+    df = by_buurt.merge(cbs, on="bu_code", how="inner").dropna(subset=["density", INDICATOR])
+    df = df[(df["density"] > 0)].copy()
+    
+    df["log_density"] = np.log10(df["density"])
+    df["log_access"] = np.log10(1 + df[INDICATOR])
+    
+    x_log = df["log_density"].to_numpy()
+    y = df["log_access"].to_numpy()
+    
+    coef = np.polyfit(x_log, y, 1)
+    pred = np.polyval(coef, x_log)
+    r2 = r_squared(y, pred)
+    
+    print(f"{distance}m{'':<7} | {len(df):<15} | {r2:<12.3f} | {coef[0]:<10.3f}")
+    
+    grid_log = np.linspace(x_log.min(), x_log.max(), 300)
+    grid = 10**grid_log
+    ax.plot(grid, 10 ** np.polyval(coef, grid_log), color=colors[distance], lw=2,
+            label=f"{distance}m buffer (R² = {r2:.2f})")
+
+# 4. FINALIZE FIGURE
+ax.set_xscale("log")
+ax.set_yscale("log")
+ax.set_xlabel("Population density (inhabitants per km², log scale)")
+ax.set_ylabel("Departures per week within walking distance (+1, log scale)")
+ax.set_title("Sensitivity Analysis: Regression Lines by Walking Distance", fontweight="bold")
+ax.legend(frameon=False, loc="upper left")
+ax.grid(alpha=0.2)
+
+output_image.parent.mkdir(exist_ok=True)
+fig.tight_layout()
+fig.savefig(output_image, dpi=200, facecolor="white")
+plt.close(fig)
+
+print(f"\nSaved regression comparison graph to: {output_image}")
