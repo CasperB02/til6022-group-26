@@ -8154,9 +8154,9 @@ Log-log quadratic R²:    0.180
 <h1 id="Sensitivity-Analysis:-Catchment-Buffer-Distances">Sensitivity Analysis: Catchment Buffer Distances<a class="anchor-link" href="#Sensitivity-Analysis:-Catchment-Buffer-Distances">¶</a></h1><p>To test the robustness of the accessibility indicator, the spatial buffering process was evaluated for walking catchment thresholds of 300 meters and 800 meters alongside the 500-meter baseline.</p>
 <p><img alt="Sensitivity Lines" src="Images/sensitivity_regression_lines.png"/></p>
 <ul>
-<li><strong>300-meter buffer:</strong> Explains $R^2 = 0.09$ of the variance. At this tighter threshold, micro-level stop placement and local street morphology introduce higher stochastic variation.</li>
-<li><strong>500-meter buffer (Baseline):</strong> Conforms to Dutch CROW walking guidelines while maintaining robust spatial coverage ($R^2 = 0.13$).</li>
-<li><strong>800-meter buffer:</strong> Yields $R^2 = 0.13$, displaying a parallel upward shift in expected departure volumes as wider catchments capture multiple stops.</li>
+<li><strong>300-meter buffer:</strong> Explains $R^2 = 0.13$ ($0.134$) of the variance. At this tighter threshold, micro-level stop placement and local street morphology introduce higher stochastic variation.</li>
+<li><strong>500-meter buffer (Baseline):</strong> Conforms to Dutch CROW walking guidelines while maintaining robust spatial coverage ($R^2 = 0.16$, $0.157$).</li>
+<li><strong>800-meter buffer:</strong> Yields $R^2 = 0.16$ ($0.163$), displaying a parallel upward shift in expected departure volumes as wider catchments capture multiple stops.</li>
 </ul>
 <p>The consistency of the slope coefficients across all three thresholds confirms that the observed positive relationship between population density and service frequency is structurally robust to buffer specifications.</p>
 <h1 id="Discussion-&amp;-Limitations">Discussion &amp; Limitations<a class="anchor-link" href="#Discussion-&amp;-Limitations">¶</a></h1><h3 id="Data-Pipeline-Reflection:-Resolving-Demand-Responsive-Transit-Filtering">Data Pipeline Reflection: Resolving Demand-Responsive Transit Filtering<a class="anchor-link" href="#Data-Pipeline-Reflection:-Resolving-Demand-Responsive-Transit-Filtering">¶</a></h3><p>In an initial iteration of the data processing pipeline, cross-referencing stop matches with departure frequencies revealed an anomaly: 262 urban neighborhoods contained mapped transit stops within 500 meters, yet recorded zero weekly departures.</p>
