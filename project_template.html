@@ -7992,7 +7992,7 @@ a.anchor-link {
 <li><strong>Statistical significance:</strong> $p &lt; 10^{-15}$</li>
 <li><strong>Correlation coefficients:</strong> The Pearson correlation between log density and log accessibility is $r = 0.356$. The non-parametric Spearman rank correlation across raw density and accessibility is $r_s = 0.499$ ($p &lt; 10^{-15}$), confirming a robust positive baseline association.</li>
 <li><strong>Model comparison ($R^2$):</strong><ul>
-<li>Linear density model: $R^2 = 0.177$</li>
+<li>Semi-log (log-linear) model: $R^2 = 0.177$</li>
 <li>Log-log power-law model: $R^2 = 0.127$</li>
 <li>Log-log quadratic polynomial model: $R^2 = 0.180$</li>
 </ul>
@@ -8000,6 +8000,7 @@ a.anchor-link {
 </ul>
 <p><img alt="Regression Scatter" src="Images/regression_scatter.png"/></p>
 <p>As demonstrated in the scatter plot, the quadratic log-log specification provides the best empirical fit ($R^2 = 0.180$). At lower densities ($&lt; 10^2\text{ inh/km}^2$), service levels are largely governed by regional baseline connectivity mandates (e.g., regional bus corridors) rather than local passenger demand. Beyond $1,000\text{ inh/km}^2$, service frequencies scale rapidly with agglomeration density.</p>
+<p><em>Note on residual extraction:</em> Although the quadratic polynomial yields a slightly higher $R^2$, the standard power-law (linear log-log) specification is retained for calculating standardized residuals ($z$-scores) in Section 4. This provides a direct, monotonic interpretation: a residual of $-1.0$ corresponds strictly to a tenfold shortfall in public transport departures relative to density expectations.</p>
 </div>
 </div>
 </div>
@@ -8141,7 +8142,8 @@ Log-log quadratic R²:    0.180
 </tr>
 </tbody>
 </table>
-<p>A non-parametric Kruskal-Wallis test confirms highly significant differences in public transport provision across urbanity tiers ($H = 7,223.9, p &lt; 10^{-15}$). The urban-rural divide is stark: neighborhoods in Class 1 exhibit a median departure volume nearly fifteen times higher than rural areas (12,266 vs. 823 departures per week). Within classes 2 through 5, the internal regression slope is slightly negative ($\beta_1 \approx -0.07$ to $-0.15$), reflecting that suburban residential commuter enclaves often sit away from primary transit corridors.</p>
+<p>A non-parametric Kruskal-Wallis test confirms highly significant differences in public transport provision across urbanity tiers ($H = 7,223.9, p &lt; 10^{-15}$). The urban-rural divide is stark: neighborhoods in Class 1 exhibit a median departure volume nearly fifteen times higher than rural areas (12,266 vs. 823 departures per week).</p>
+<p>Crucially, within classes 2 through 5, the internal regression slope is slightly negative ($\beta_1 \approx -0.066$ to $-0.145$). This reversal of the national aggregate trend ($\beta_1 &gt; 0$) at the subgroup level demonstrates <strong>Simpson's Paradox</strong> (an ecological fallacy). At the national scale, urban agglomerations draw intensive public transit networks. However, within individual suburban and rural tiers, higher-density residential clusters often consist of commuter developments situated away from regional rail and bus corridors, yielding localized negative associations.</p>
 <p><img alt="Urbanity Boxplot" src="Images/urbanity_boxplot.png"/></p>
 <h2 id="4.-Residual-Identification-&amp;-Spatial-Outliers-(Sub-Question-4)">4. Residual Identification &amp; Spatial Outliers (Sub-Question 4)<a class="anchor-link" href="#4.-Residual-Identification-&amp;-Spatial-Outliers-(Sub-Question-4)">¶</a></h2><p>Standardized regression residuals ($z$-scores) were computed to locate neighborhoods where public transport supply lags significantly behind model expectations given their density ($z &lt; -1.0$):</p>
 <ul>
@@ -8172,9 +8174,9 @@ Log-log quadratic R²:    0.180
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="References">References<a class="anchor-link" href="#References">¶</a></h1><p><a href="https://publications.tno.nl/publication/34642067/rD5lQO/TNO-2024-P12018.pdf">https://publications.tno.nl/publication/34642067/rD5lQO/TNO-2024-P12018.pdf</a> (Dalla Longa et al., 2024)</p>
-<p>CBS (2024). <em>Stedelijkheid (van een gebied) en omgevingsadressendichtheid</em>. Centraal Bureau voor de Statistiek. <a href="https://www.cbs.nl/nl-nl/onze-diensten/methoden/begrippen/stedelijkheid--van-een-gebied--">https://www.cbs.nl/nl-nl/onze-diensten/methoden/begrippen/stedelijkheid--van-een-gebied--</a></p>
+<h1 id="References">References<a class="anchor-link" href="#References">¶</a></h1><p>CBS (2024). <em>Stedelijkheid (van een gebied) en omgevingsadressendichtheid</em>. Centraal Bureau voor de Statistiek. <a href="https://www.cbs.nl/nl-nl/onze-diensten/methoden/begrippen/stedelijkheid--van-een-gebied--">https://www.cbs.nl/nl-nl/onze-diensten/methoden/begrippen/stedelijkheid--van-een-gebied--</a></p>
 <p>CROW (2021). <em>ASVV 2021: Aanbevelingen voor verkeersvoorzieningen binnen de bebouwde kom</em>. Kennisplatform CROW. <a href="https://kennisbank.crow.nl/">https://kennisbank.crow.nl/</a></p>
+<p>Dalla Longa, F., Knoope, M., &amp; Sijm, J. (2024). <em>Verkenning van het risico op vervoersarmoede in Nederland</em>. TNO rapport TNO-2024-P12018. <a href="https://publications.tno.nl/publication/34642067/rD5lQO/TNO-2024-P12018.pdf">https://publications.tno.nl/publication/34642067/rD5lQO/TNO-2024-P12018.pdf</a></p>
 </div>
 </div>
 </div>
@@ -8185,14 +8187,14 @@ Log-log quadratic R²:    0.180
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="AI-Disclosure-Statement">AI Disclosure Statement<a class="anchor-link" href="#AI-Disclosure-Statement">¶</a></h1><p>We acknowledge the use of Google Gemini (<a href="https://gemini.google.com">https://gemini.google.com</a>) and Anthropic Claude (<a href="https://claude.ai">https://claude.ai</a>) in preparing this submission. We used them for the following purposes:</p>
+<h1 id="AI-Disclosure-Statement">AI Disclosure Statement<a class="anchor-link" href="#AI-Disclosure-Statement">¶</a></h1><p>We acknowledge the use of Google Gemini, Anthropic Claude, and GitHub Copilot (integrated into VS Code) in preparing this submission. We used them for the following purposes:</p>
 <ul>
 <li>Refining language (grammar, clarity)</li>
 <li>Assisting with programming and debugging</li>
 <li>Providing feedback on draft and code</li>
 </ul>
-<p>Brief description: All group members used Gemini or Claude for debugging Python scripts (GeoPandas spatial operations, Git LFS troubleshooting, and pyogrio errors), optimizing regression analysis code, and refining the academic clarity and structure of the report narrative.</p>
-<p>We confirm that we have critically reviewed and verified all AI-assisted content, that the submitted work reflects our own understanding, and that we take full responsibility for its accuracy and originality.</p>
+<p>Brief description: All group members used Gemini and Claude for debugging Python scripts (GeoPandas spatial operations, Git LFS troubleshooting, and pyogrio errors), optimizing regression analysis code, and refining the academic clarity and structure of the report narrative. GitHub Copilot within VS Code was used for inline code autocompletion and syntax assistance during script development.</p>
+<p>We confirm that we have  reviewed and verified all AI-assisted content, that the submitted work reflects our own understanding, and that we take full responsibility for its accuracy and originality.</p>
 </div>
 </div>
 </div>
