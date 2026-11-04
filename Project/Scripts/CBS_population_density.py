@@ -167,5 +167,5 @@ ax.set_title(
 ax.axis("off")
 
 plt.tight_layout()
-plt.savefig("population_density_map.png", dpi=300, bbox_inches="tight")
+plt.savefig(os.path.join("Images", "population_density_map.png"), dpi=300, bbox_inches="tight")
 plt.show()
