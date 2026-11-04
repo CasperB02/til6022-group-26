@@ -8000,6 +8000,80 @@ a.anchor-link {
 </ul>
 <p><img alt="Regression Scatter" src="Images/regression_scatter.png"/></p>
 <p>As demonstrated in the scatter plot, the quadratic log-log specification provides the best empirical fit ($R^2 = 0.180$). At lower densities ($&lt; 10^2\text{ inh/km}^2$), service levels are largely governed by regional baseline connectivity mandates (e.g., regional bus corridors) rather than local passenger demand. Beyond $1,000\text{ inh/km}^2$, service frequencies scale rapidly with agglomeration density.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"Generated_Data/residuals.csv"</span><span class="p">)</span>
+
+
+<span class="n">df</span><span class="p">[</span><span class="s2">"log_density"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"density"</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"log_access"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s2">"total_departures_per_week"</span><span class="p">])</span>
+
+<span class="n">x_log</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"log_density"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">x_lin</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"density"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"log_access"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+<span class="n">r_pearson</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">x_log</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">r_spearman</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">spearmanr</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"density"</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">"total_departures_per_week"</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Sample size: N = </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Pearson r (log-density vs log-access): </span><span class="si">{</span><span class="n">r_pearson</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> (p &lt; 1e-15)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Spearman rank correlation: </span><span class="si">{</span><span class="n">r_spearman</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> (p &lt; 1e-15)"</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_r2</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">y_true</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">r2_semilog</span> <span class="o">=</span> <span class="n">get_r2</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">x_lin</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">x_lin</span><span class="p">))</span>
+<span class="n">r2_powerlaw</span> <span class="o">=</span> <span class="n">get_r2</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">x_log</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">x_log</span><span class="p">))</span>
+<span class="n">r2_poly</span> <span class="o">=</span> <span class="n">get_r2</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">x_log</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">x_log</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Semi-log (log-linear) R²: </span><span class="si">{</span><span class="n">r2_semilog</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Log-log power-law R²:    </span><span class="si">{</span><span class="n">r2_powerlaw</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Log-log quadratic R²:    </span><span class="si">{</span><span class="n">r2_poly</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Sample size: N = 14,041
+Pearson r (log-density vs log-access): 0.356 (p &lt; 1e-15)
+Spearman rank correlation: 0.499 (p &lt; 1e-15)
+Semi-log (log-linear) R²: 0.177
+Log-log power-law R²:    0.127
+Log-log quadratic R²:    0.180
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="3.-Urban-versus-Rural-Disparities-(Sub-Question-3)">3. Urban versus Rural Disparities (Sub-Question 3)<a class="anchor-link" href="#3.-Urban-versus-Rural-Disparities-(Sub-Question-3)">¶</a></h2><p>Stratifying the data across the five official CBS urbanity tiers (<em>omgevingsadressendichtheid</em>) demonstrates that public transport provision is primarily governed by macro-level urban classification rather than fine-grained local density variations:</p>
 <table>
 <thead>
