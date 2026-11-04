@@ -112,7 +112,7 @@ fig, ax = plt.subplots(figsize=(9, 6))
 data = [df.loc[df["urbanity"] == c, INDICATOR] + 1 for c in sorted(URBANITY_LABELS)]
 bp = ax.boxplot(
     data,
-    labels=[URBANITY_LABELS[c] for c in sorted(URBANITY_LABELS)],
+    tick_labels=[URBANITY_LABELS[c] for c in sorted(URBANITY_LABELS)],
     showfliers=False,
     patch_artist=True,
     medianprops={"color": "black"},
