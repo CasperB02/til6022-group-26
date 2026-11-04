@@ -3,7 +3,7 @@ from pathlib import Path
 from collections import Counter
 
 # 1. SETTINGS
-DATA = Path(__file__).resolve().parents[2] / "data"
+DATA = Path(__file__).resolve().parents[2] / "Data"
 GENERATED_DATA = Path(__file__).resolve().parents[2] / "Generated_Data"
 
 START = "2026-10-26"
