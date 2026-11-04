@@ -1,21 +1,21 @@
 bu_naam,gemeente,population,density,total_departures_per_week,residual_z
-Bossenbuurt hoog-West,Zoetermeer,1350.0,23050,0.0,-3.915304082531709
-Visserijbuurt,'s-Gravenhage,4045.0,14898,0.0,-3.844721796603648
-Oosterheem-Centrum,Zoetermeer,1215.0,14882,0.0,-3.844548017441263
-Gillisbuurt,Delft,1555.0,14639,0.0,-3.8418855311126827
-Geuzenkwartier,'s-Gravenhage,4500.0,14311,0.0,-3.8382207652936944
-Sweelinckplein e.o.,'s-Gravenhage,5900.0,13677,0.0,-3.830892620156044
-Vruchtenbuurt,'s-Gravenhage,7295.0,13637,0.0,-3.8304189485354976
-Stadhoudersplantsoen,'s-Gravenhage,2895.0,13198,0.0,-3.8251271410499768
-Componistenbuurt,'s-Gravenhage,1810.0,12340,0.0,-3.8142562220896568
-Rodenbuurt-Zuid,Zoetermeer,795.0,11860,0.0,-3.8078399140991266
-Bomenbuurt,'s-Gravenhage,6140.0,11665,0.0,-3.80515878766403
-Eilandenbuurt midden,Zoetermeer,640.0,10860,0.0,-3.7935945117050567
-Bloemenbuurt-Oost,'s-Gravenhage,6450.0,10750,0.0,-3.791948078797561
-Statenkwartier,'s-Gravenhage,10240.0,10117,0.0,-3.7821333268070774
-Oud Scheveningen,'s-Gravenhage,2975.0,10081,0.0,-3.781556829926917
-Rembrandtkwartier,Rijswijk (ZH.),3735.0,10049,0.0,-3.7810426573171663
-Bomenbuurt,Rijswijk (ZH.),3005.0,9852,0.0,-3.7778407564544634
-Afrikabuurt-West,Delft,1785.0,9715,0.0,-3.7755760819672655
-Scheveningen Badplaats,'s-Gravenhage,5715.0,9160,0.0,-3.7660627292039903
-Vierslag,Overbetuwe,995.0,9050,0.0,-3.764108882932875
+Vierslag,Overbetuwe,995.0,9050,0.0,-4.286338113404117
+Vissenbuurt,Teylingen,1505.0,8492,0.0,-4.275313561571018
+Reijershove,Middelburg (Z.),1970.0,8349,0.0,-4.2723715938161675
+Stromenbuurt-Noord,Zoetermeer,880.0,8272,0.0,-4.270766516372876
+Dichtersbuurt-Midden,Zwijndrecht,535.0,7836,0.0,-4.261386355836085
+Nieuwe-Oosterhei,Baarn,2575.0,6739,0.0,-4.235259961425135
+B. en W.-buurt,Zoetermeer,895.0,6627,0.0,-4.232356700695117
+Oude-Oosterhei,Baarn,2150.0,6287,0.0,-4.223232857351624
+Berkenoord 2,Epe,635.0,6234,0.0,-4.2217663009946556
+Bosveld,Leusden,560.0,6082,0.0,-4.2174901279835595
+Veenderij,Veenendaal,3485.0,6027,0.0,-4.215916446967579
+Scheepsbuurt,Meppel,1875.0,5848,0.0,-4.210693548086573
+Molenweg e.o.,Vlissingen,1705.0,5840,0.0,-4.210456405713915
+Schoonenburg,Vlissingen,1025.0,5603,0.0,-4.203279621856456
+Kern Oost-Souburg Oost,Vlissingen,1600.0,5335,0.0,-4.194788929333254
+Westenesch-Hofrichter,Berkelland,1145.0,5224,0.0,-4.191146631156264
+Greente,Zwartewaterland,1485.0,4994,0.0,-4.183346631017359
+Dr. Schaepmanbuurt,Hof van Twente,615.0,4932,0.0,-4.181182505849882
+Plantenbuurt,Meppel,2000.0,4751,0.0,-4.17470543657471
+Berkenoord 1,Epe,840.0,4578,0.0,-4.168279741542398

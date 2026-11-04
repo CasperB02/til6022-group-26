@@ -7983,98 +7983,111 @@ a.anchor-link {
 <ul>
 <li><strong>Mean supply:</strong> 4,357 scheduled departures per week per neighborhood.</li>
 <li><strong>Median supply:</strong> 2,115 departures per week, demonstrating that a minority of high-density transit corridors substantially elevate the national average.</li>
-<li><strong>Network gaps:</strong> 704 neighborhoods record zero scheduled transit stops within their 500-meter walking boundary, located predominantly in peripheral agricultural regions and exterior industrial zones.</li>
+<li><strong>Network gaps:</strong> 613 neighborhoods record zero scheduled transit departures within their 500-meter walking boundary, located predominantly in peripheral agricultural regions and exterior industrial zones.</li>
 </ul>
 <p><img alt="Accessibility Map" src="Images/accessibility_map.png"/></p>
 <h2 id="2.-Quantitative-Relationship-between-Density-and-Accessibility-(Sub-Question-2)">2. Quantitative Relationship between Density and Accessibility (Sub-Question 2)<a class="anchor-link" href="#2.-Quantitative-Relationship-between-Density-and-Accessibility-(Sub-Question-2)">¶</a></h2><p>To examine the relationship between neighborhood population density and scheduled public transport departures, both variables were log-transformed ($\log_{10}$) to stabilize variance and reflect diminishing marginal returns in transit provision.</p>
-<p>The estimated Ordinary Least Squares (OLS) model is formulated as:
-$$\log_{10}(\text{Departures}_{i} + 1) = 2.1147 + 0.3438 \cdot \log_{10}(\text{Density}_{i})$$</p>
 <ul>
-<li><strong>Sample size:</strong> $N = 14,041$</li>
-<li><strong>Statistical significance:</strong> $p &lt; 10^{-15}$ (standard error of slope = $0.00815$)</li>
-<li><strong>Model explanatory power:</strong> $R = 0.3354$, $R^2 = 0.1125$. Population density accounts for approximately 11.3% of the total variance in localized public transport supply.</li>
-<li><strong>Rank correlation:</strong> The non-parametric Spearman rank correlation is $r_s = 0.4766$ ($p &lt; 10^{-15}$), and the untransformed Pearson correlation is $r = 0.5091$, confirming a positive and statistically significant baseline association.</li>
+<li><strong>Sample size:</strong> $N = 14,041$ (779 unpopulated/water zones excluded)</li>
+<li><strong>Statistical significance:</strong> $p &lt; 10^{-15}$</li>
+<li><strong>Correlation coefficients:</strong> The Pearson correlation between log density and log accessibility is $r = 0.356$. The non-parametric Spearman rank correlation across raw density and accessibility is $r_s = 0.499$ ($p &lt; 10^{-15}$), confirming a robust positive baseline association.</li>
+<li><strong>Model comparison ($R^2$):</strong><ul>
+<li>Linear density model: $R^2 = 0.177$</li>
+<li>Log-log power-law model: $R^2 = 0.127$</li>
+<li>Log-log quadratic polynomial model: $R^2 = 0.180$</li>
+</ul>
+</li>
 </ul>
 <p><img alt="Regression Scatter" src="Images/regression_scatter.png"/></p>
-<p>As demonstrated in the scatter plot, a quadratic log-log specification provides an improved fit ($R^2 = 0.150$). At lower densities ($&lt; 10^2\text{ inh/km}^2$), service levels are largely governed by regional baseline connectivity mandates (e.g., regional bus corridors) rather than local passenger demand. Beyond $1,000\text{ inh/km}^2$, service frequencies scale rapidly with agglomeration density.</p>
-<h2 id="3.-Urban-versus-Rural-Disparities-(Sub-Question-3)">3. Urban versus Rural Disparities (Sub-Question 3)<a class="anchor-link" href="#3.-Urban-versus-Rural-Disparities-(Sub-Question-3)">¶</a></h2><p>Stratifying the data across the five official CBS urbanity tiers (<em>omgevingsadressendichtheid</em>) demonstrates that public transport provision is primarily driven by macro-level urban classification rather than fine-grained local density variations:</p>
+<p>As demonstrated in the scatter plot, the quadratic log-log specification provides the best empirical fit ($R^2 = 0.180$). At lower densities ($&lt; 10^2\text{ inh/km}^2$), service levels are largely governed by regional baseline connectivity mandates (e.g., regional bus corridors) rather than local passenger demand. Beyond $1,000\text{ inh/km}^2$, service frequencies scale rapidly with agglomeration density.</p>
+<h2 id="3.-Urban-versus-Rural-Disparities-(Sub-Question-3)">3. Urban versus Rural Disparities (Sub-Question 3)<a class="anchor-link" href="#3.-Urban-versus-Rural-Disparities-(Sub-Question-3)">¶</a></h2><p>Stratifying the data across the five official CBS urbanity tiers (<em>omgevingsadressendichtheid</em>) demonstrates that public transport provision is primarily governed by macro-level urban classification rather than fine-grained local density variations:</p>
 <table>
 <thead>
 <tr>
 <th style="text-align:left">CBS Urbanity Class</th>
 <th style="text-align:center">Sample ($N$)</th>
-<th style="text-align:center">Mean Density ($\text{inh/km}^2$)</th>
-<th style="text-align:center">Mean Departures/wk</th>
+<th style="text-align:center">Median Density ($\text{inh/km}^2$)</th>
+<th style="text-align:center">Median Departures/wk</th>
+<th style="text-align:center">Share Zero Departures</th>
 <th style="text-align:center">Log-log Slope ($\beta_1$)</th>
 <th style="text-align:center">$R^2$</th>
+<th style="text-align:center">$p$-value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:left"><strong>1: Very strongly urban</strong> (<em>Zeer sterk stedelijk</em>)</td>
 <td style="text-align:center">1,970</td>
-<td style="text-align:center">9,231.9</td>
-<td style="text-align:center">13,899.4</td>
-<td style="text-align:center">+0.1621</td>
-<td style="text-align:center">0.0062</td>
+<td style="text-align:center">8,266.0</td>
+<td style="text-align:center">12,266.0</td>
+<td style="text-align:center">0.0%</td>
+<td style="text-align:center">+0.201</td>
+<td style="text-align:center">0.039</td>
+<td style="text-align:center">$&lt; 10^{-15}$</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>2: Strongly urban</strong> (<em>Sterk stedelijk</em>)</td>
 <td style="text-align:center">2,457</td>
-<td style="text-align:center">5,270.2</td>
-<td style="text-align:center">5,820.0</td>
-<td style="text-align:center">-0.0877</td>
-<td style="text-align:center">0.0056</td>
+<td style="text-align:center">5,244.0</td>
+<td style="text-align:center">4,781.0</td>
+<td style="text-align:center">0.2%</td>
+<td style="text-align:center">-0.066</td>
+<td style="text-align:center">0.005</td>
+<td style="text-align:center">$&lt; 10^{-15}$</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>3: Moderately urban</strong> (<em>Matig stedelijk</em>)</td>
 <td style="text-align:center">1,902</td>
-<td style="text-align:center">3,746.7</td>
-<td style="text-align:center">3,500.2</td>
-<td style="text-align:center">-0.1150</td>
-<td style="text-align:center">0.0152</td>
+<td style="text-align:center">3,798.5</td>
+<td style="text-align:center">2,860.5</td>
+<td style="text-align:center">0.8%</td>
+<td style="text-align:center">-0.112</td>
+<td style="text-align:center">0.017</td>
+<td style="text-align:center">$&lt; 10^{-15}$</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>4: Slightly urban</strong> (<em>Weinig stedelijk</em>)</td>
 <td style="text-align:center">2,111</td>
-<td style="text-align:center">2,261.6</td>
-<td style="text-align:center">2,529.3</td>
-<td style="text-align:center">-0.1355</td>
-<td style="text-align:center">0.0220</td>
+<td style="text-align:center">1,995.0</td>
+<td style="text-align:center">1,888.0</td>
+<td style="text-align:center">2.2%</td>
+<td style="text-align:center">-0.145</td>
+<td style="text-align:center">0.027</td>
+<td style="text-align:center">$&lt; 10^{-15}$</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>5: Non-urban / Rural</strong> (<em>Niet-stedelijk</em>)</td>
 <td style="text-align:center">5,601</td>
-<td style="text-align:center">613.0</td>
-<td style="text-align:center">1,339.8</td>
-<td style="text-align:center">-0.1301</td>
-<td style="text-align:center">0.0095</td>
+<td style="text-align:center">95.0</td>
+<td style="text-align:center">823.0</td>
+<td style="text-align:center">9.7%</td>
+<td style="text-align:center">-0.132</td>
+<td style="text-align:center">0.012</td>
+<td style="text-align:center">$&lt; 10^{-15}$</td>
 </tr>
 </tbody>
 </table>
-<p>The urban-rural divide is pronounced: neighborhoods in Class 1 average more than ten times the weekly departure volume of non-urban areas (13,899 vs. 1,340 departures). Within classes 2 through 5, the internal regression slope is slightly negative ($\beta_1 \approx -0.09$ to $-0.14$). In suburban and rural municipalities, higher neighborhood density often corresponds to purely residential commuter enclaves situated away from main railway and bus corridors, whereas lower-density peripheral neighborhoods frequently intersect regional transit arteries.</p>
+<p>A non-parametric Kruskal-Wallis test confirms highly significant differences in public transport provision across urbanity tiers ($H = 7,223.9, p &lt; 10^{-15}$). The urban-rural divide is stark: neighborhoods in Class 1 exhibit a median departure volume nearly fifteen times higher than rural areas (12,266 vs. 823 departures per week). Within classes 2 through 5, the internal regression slope is slightly negative ($\beta_1 \approx -0.07$ to $-0.15$), reflecting that suburban residential commuter enclaves often sit away from primary transit corridors.</p>
+<p><img alt="Urbanity Boxplot" src="Images/urbanity_boxplot.png"/></p>
 <h2 id="4.-Residual-Identification-&amp;-Spatial-Outliers-(Sub-Question-4)">4. Residual Identification &amp; Spatial Outliers (Sub-Question 4)<a class="anchor-link" href="#4.-Residual-Identification-&amp;-Spatial-Outliers-(Sub-Question-4)">¶</a></h2><p>Standardized regression residuals ($z$-scores) were computed to locate neighborhoods where public transport supply lags significantly behind model expectations given their density ($z &lt; -1.0$):</p>
 <ul>
-<li>A total of 1,285 neighborhoods (9.15% of the sample) are classified as underserved relative to density.</li>
-<li>The lowest residual scores ($z \approx -3.76$ to $-3.92$) cluster in dense urban and suburban municipalities, including <em>Bossenbuurt hoog-West</em> and <em>Oosterheem-Centrum</em> (Zoetermeer), <em>Visserijbuurt</em> and <em>Statenkwartier</em> ('s-Gravenhage), and <em>Gillisbuurt</em> (Delft).</li>
+<li>A total of <strong>1,237 neighborhoods (8.8% of the sample)</strong> are classified as underserved relative to density ($z &lt; -1.0$).</li>
+<li>Among populated neighborhoods ($\ge 500$ residents), the most severe negative residuals ($z \approx -4.17$ to $-4.29$) occur in dense residential neighborhoods completely lacking active scheduled stops within 500 meters, such as <em>Vierslag</em> (Overbetuwe), <em>Vissenbuurt</em> (Teylingen), <em>Reijershove</em> (Middelburg), <em>Stromenbuurt-Noord</em> (Zoetermeer), and <em>Dichtersbuurt-Midden</em> (Zwijndrecht).</li>
 </ul>
 <p><img alt="Residual Map" src="Images/residual_map.png"/></p>
 <h1 id="Sensitivity-Analysis:-Catchment-Buffer-Distances">Sensitivity Analysis: Catchment Buffer Distances<a class="anchor-link" href="#Sensitivity-Analysis:-Catchment-Buffer-Distances">¶</a></h1><p>To test the robustness of the accessibility indicator, the spatial buffering process was evaluated for walking catchment thresholds of 300 meters and 800 meters alongside the 500-meter baseline.</p>
 <p><img alt="Sensitivity Lines" src="Images/sensitivity_regression_lines.png"/></p>
 <ul>
 <li><strong>300-meter buffer:</strong> Explains $R^2 = 0.09$ of the variance. At this tighter threshold, micro-level stop placement and local street morphology introduce higher stochastic variation.</li>
-<li><strong>500-meter buffer (Baseline):</strong> Conforms to Dutch CROW walking guidelines while maintaining robust spatial coverage ($R^2 = 0.11$).</li>
+<li><strong>500-meter buffer (Baseline):</strong> Conforms to Dutch CROW walking guidelines while maintaining robust spatial coverage ($R^2 = 0.13$).</li>
 <li><strong>800-meter buffer:</strong> Yields $R^2 = 0.13$, displaying a parallel upward shift in expected departure volumes as wider catchments capture multiple stops.</li>
 </ul>
 <p>The consistency of the slope coefficients across all three thresholds confirms that the observed positive relationship between population density and service frequency is structurally robust to buffer specifications.</p>
-<h1 id="Discussion-&amp;-Limitations">Discussion &amp; Limitations<a class="anchor-link" href="#Discussion-&amp;-Limitations">¶</a></h1><h3 id="Data-Pipeline-Reflection-and-the-262-Neighborhood-Anomaly">Data Pipeline Reflection and the 262-Neighborhood Anomaly<a class="anchor-link" href="#Data-Pipeline-Reflection-and-the-262-Neighborhood-Anomaly">¶</a></h3><p>Cross-referencing <code>buurt_stop_matches.csv</code> ($53,291$ matches) with <code>stop_frequencies.csv</code> ($48,477$ active stops) revealed that 262 urban neighborhoods contain physical stops within 500 meters yet record zero weekly scheduled departures:</p>
-<ol>
-<li><strong>Demand-Responsive Transit Filtering:</strong> Flexible, on-demand services (<em>buurtbussen</em>, dial-a-ride, flexvervoer) frequently register placeholder departures in raw GTFS feeds. To prevent distortions in regular scheduled transit capacity, these services were filtered out during preprocessing.</li>
-<li><strong>Buffer Edge Effects:</strong> Neighborhoods located near stops served primarily by filtered flexible routes registered zero departures, even when high-frequency tram or bus corridors were located just outside the 500-meter catchment boundary.</li>
-</ol>
-<h3 id="Transport-Poverty-and-Policy-Implications">Transport Poverty and Policy Implications<a class="anchor-link" href="#Transport-Poverty-and-Policy-Implications">¶</a></h3><p>Because dataset CBS 86358NED does not record neighborhood-level household income, the direct quantitative interaction between income, density, and public transport access could not be estimated parametrically. Nevertheless, the empirical findings align with the transport poverty framework described by Dalla Longa et al. (2024). In rural and low-density areas (Classes 4 and 5), where baseline transit provision averages fewer than 1,340 weekly departures, car dependency remains structurally high. Policies aimed at disincentivizing private vehicle use through taxation or environmental zones risk exacerbating transport poverty in peripheral communities unless accompanied by targeted public transit investments.</p>
+<h1 id="Discussion-&amp;-Limitations">Discussion &amp; Limitations<a class="anchor-link" href="#Discussion-&amp;-Limitations">¶</a></h1><h3 id="Data-Pipeline-Reflection:-Resolving-Demand-Responsive-Transit-Filtering">Data Pipeline Reflection: Resolving Demand-Responsive Transit Filtering<a class="anchor-link" href="#Data-Pipeline-Reflection:-Resolving-Demand-Responsive-Transit-Filtering">¶</a></h3><p>In an initial iteration of the data processing pipeline, cross-referencing stop matches with departure frequencies revealed an anomaly: 262 urban neighborhoods contained mapped transit stops within 500 meters, yet recorded zero weekly departures.</p>
+<p>Diagnostic tracing identified that flexible, on-demand services (<em>buurtbussen</em>, dial-a-ride, and <em>flexvervoer</em>) had been registering artificial minute-by-minute placeholder departures in raw GTFS feeds. To prevent gross distortion of fixed-line network capacity, these demand-responsive trips were capped at a maximum of one departure per day. Additionally, selecting a fully consolidated GTFS schedule week covering all regional transport operators reduced the count of unserved stop-adjacent neighborhoods from 262 to merely <strong>7 localized cases</strong>. Furthermore, to prevent artificial visual distortion from sparsely populated rural areas, neighborhoods with fewer than 25 residents are rendered in neutral grey on the spatial maps.</p>
+<h3 id="Transport-Poverty-and-Policy-Implications">Transport Poverty and Policy Implications<a class="anchor-link" href="#Transport-Poverty-and-Policy-Implications">¶</a></h3><p>Because dataset CBS 86358NED does not record neighborhood-level household income, the direct quantitative interaction between income, density, and public transport access could not be estimated parametrically. Nevertheless, the empirical findings align with the transport poverty framework described by Dalla Longa et al. (2024). In rural and low-density areas (Classes 4 and 5), where baseline transit provision averages fewer than 823 weekly departures, car dependency remains structurally high. Policies aimed at disincentivizing private vehicle use through taxation or environmental zones risk exacerbating transport poverty in peripheral communities unless accompanied by targeted public transit investments.</p>
 <h1 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">¶</a></h1><p>This study evaluated the relationship between population density and public transport accessibility across Dutch neighborhoods and examined how this dynamic varies across the urban-rural continuum.</p>
-<p>The analysis reveals a statistically significant positive relationship ($\log_{10}(\text{Departures}+1) = 2.1147 + 0.3438 \cdot \log_{10}(\text{Density})$, $p &lt; 10^{-15}$), with population density explaining 11.3% of the variance in local transit supply. However, this relationship differs substantially between urban and rural settings. While urban neighborhoods benefit from more than tenfold the departure frequency of rural areas, density variations <em>within</em> suburban and rural tiers do not correlate with improved transit supply. Transport planning in the Netherlands remains concentrated around metropolitan agglomerations, underscoring the need for targeted regional transit policies to ensure an equitable transition to sustainable mobility.</p>
+<p>The analysis confirms a statistically significant positive relationship between density and transit supply, with a quadratic log-log model explaining 18.0% of the variance in local departures ($R^2 = 0.180, p &lt; 10^{-15}$). However, this provision is fundamentally stratified by macro-level urban classification ($H = 7,223.9$). While metropolitan centers benefit from high departure densities (median 12,266/wk), rural neighborhoods experience structural service deficits (median 823/wk), with density variations <em>within</em> rural classes showing no positive correlation with service frequency. Transport planning in the Netherlands remains concentrated around metropolitan agglomerations, underscoring the need for targeted regional transit policies to ensure an equitable transition to sustainable mobility.</p>
 </div>
 </div>
 </div>
@@ -8088,6 +8101,24 @@ $$\log_{10}(\text{Departures}_{i} + 1) = 2.1147 + 0.3438 \cdot \log_{10}(\text{D
 <h1 id="References">References<a class="anchor-link" href="#References">¶</a></h1><p><a href="https://publications.tno.nl/publication/34642067/rD5lQO/TNO-2024-P12018.pdf">https://publications.tno.nl/publication/34642067/rD5lQO/TNO-2024-P12018.pdf</a> (Dalla Longa et al., 2024)</p>
 <p>CBS (2024). <em>Stedelijkheid (van een gebied) en omgevingsadressendichtheid</em>. Centraal Bureau voor de Statistiek. <a href="https://www.cbs.nl/nl-nl/onze-diensten/methoden/begrippen/stedelijkheid--van-een-gebied--">https://www.cbs.nl/nl-nl/onze-diensten/methoden/begrippen/stedelijkheid--van-een-gebied--</a></p>
 <p>CROW (2021). <em>ASVV 2021: Aanbevelingen voor verkeersvoorzieningen binnen de bebouwde kom</em>. Kennisplatform CROW. <a href="https://kennisbank.crow.nl/">https://kennisbank.crow.nl/</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h1 id="AI-Disclosure-Statement">AI Disclosure Statement<a class="anchor-link" href="#AI-Disclosure-Statement">¶</a></h1><p>We acknowledge the use of Google Gemini (<a href="https://gemini.google.com">https://gemini.google.com</a>) and Anthropic Claude (<a href="https://claude.ai">https://claude.ai</a>) in preparing this submission. We used them for the following purposes:</p>
+<ul>
+<li>Refining language (grammar, clarity)</li>
+<li>Assisting with programming and debugging</li>
+<li>Providing feedback on draft and code</li>
+</ul>
+<p>Brief description: All group members used Gemini or Claude for debugging Python scripts (GeoPandas spatial operations, Git LFS troubleshooting, and pyogrio errors), optimizing regression analysis code, and refining the academic clarity and structure of the report narrative.</p>
+<p>We confirm that we have critically reviewed and verified all AI-assisted content, that the submitted work reflects our own understanding, and that we take full responsibility for its accuracy and originality.</p>
 </div>
 </div>
 </div>
