@@ -36,7 +36,7 @@ The study evaluates the spatial relationship between public transport accessibil
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/CasperB02/til6022-group-26.git](https://github.com/CasperB02/til6022-group-26.git)
+   git clone https://github.com/CasperB02/til6022-group-26.git
    cd til6022-group-26
    ```
 
