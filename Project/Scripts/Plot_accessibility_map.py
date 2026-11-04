@@ -44,6 +44,10 @@ nl_map[indicator] = pd.to_numeric(
     nl_map[indicator], errors="coerce"
 )
 
+# Exclude neighborhoods with fewer than 25 residents
+low_population = nl_map["population"] < 25
+nl_map.loc[low_population, indicator] = np.nan
+
 # Limit extreme outliers to the 98th percentile
 max_value = nl_map[indicator].quantile(0.98)
 
@@ -65,6 +69,13 @@ nl_map.plot(
     ax=ax,
     linewidth=0,
     missing_kwds={"color": "orange"}
+)
+
+# Show neighborhoods with fewer than 100 residents in grey
+nl_map.loc[low_population].plot(
+    ax=ax,
+    color="lightgrey",
+    linewidth=0
 )
 
 # 8. Colorbar with original indicator values
